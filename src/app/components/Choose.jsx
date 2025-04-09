@@ -13,13 +13,9 @@ const ServicesGrid = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
   const [loadingComplete, setLoadingComplete] = useState(false);
 
-  // Smoother loading transition
   useEffect(() => {
     if (isInView) {
-      // Shorter delay for smoother appearance
-      setTimeout(() => {
-        setLoadingComplete(true);
-      }, 100);
+      setTimeout(() => setLoadingComplete(true), 100);
     }
   }, [isInView]);
 
@@ -27,77 +23,92 @@ const ServicesGrid = () => {
     router.push(path);
   };
 
-  // Smoother section animation
   const sectionVariants = {
-    hidden: { opacity: 0 },
-    visible: { 
+    hidden: { opacity: 0, y: 30 },
+    visible: {
       opacity: 1,
-      transition: { 
-        duration: 0.5,
-        ease: "easeOut"
-      }
-    }
-  };
-
-  // Smoother title animation
-  const titleVariants = {
-    hidden: { opacity: 0, y: -15 },
-    visible: { 
-      opacity: 1, 
       y: 0,
-      transition: { 
-        duration: 0.6,
-        ease: "easeOut",
-        delay: 0.1
+      transition: {
+        duration: 0.8,
+        ease: 'easeOut'
       }
     }
   };
 
-  // Smoother grid animation with proper staggering
-  const gridVariants = {
-    hidden: { opacity: 0 },
-    visible: { 
+  const titleVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: {
       opacity: 1,
-      transition: { 
-        staggerChildren: 0.08,
-        delayChildren: 0.2,
-        duration: 0.3,
-        ease: "easeOut"
+      y: 0,
+      transition: {
+        duration: 0.7,
+        ease: 'easeOut',
+        delay: 0.2
+      }
+    }
+  };
+
+  const underlineVariants = {
+    hidden: { scaleX: 0 },
+    visible: {
+      scaleX: 1,
+      transition: {
+        duration: 0.5,
+        ease: 'easeOut',
+        delay: 0.5
+      }
+    }
+  };
+
+  const gridVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.3
       }
     }
   };
 
   return (
-    <motion.section 
+    <motion.section
       ref={ref}
       variants={sectionVariants}
       initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
+      animate={isInView ? 'visible' : 'hidden'}
       className="py-24 px-6 md:px-12 lg:px-24 relative bg-gradient-to-b from-blue-950 to-gray-900"
     >
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          backgroundSize: '30px 30px'
-        }} />
-      </div>
+      {/* Background Pattern with subtle animation */}
+      <motion.div
+        className="absolute inset-0 opacity-5"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.05 }}
+        transition={{ duration: 1.5, ease: 'easeOut', delay: 0.3 }}
+      >
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            backgroundSize: '30px 30px'
+          }}
+        />
+      </motion.div>
 
-      <div className="relative">
-        {/* Section Title with smoother animation */}
-        <motion.div 
-          variants={titleVariants}
-          className="text-center mb-16"
-        >
+      <div className="relative z-10">
+        {/* Section Title */}
+        <motion.div variants={titleVariants} className="text-center mb-16">
           <h2 className="text-4xl font-bold text-blue-100 mb-4">Our Services</h2>
-          <div className="w-24 h-1 bg-blue-500 mx-auto rounded-full"></div>
+          <motion.div
+            className="w-24 h-1 bg-blue-500 mx-auto rounded-full origin-left"
+            variants={underlineVariants}
+          />
         </motion.div>
 
-        {/* Services Grid with smoother staggered animation */}
-        <motion.div 
+        {/* Services Grid */}
+        <motion.div
           variants={gridVariants}
           initial="hidden"
-          animate={loadingComplete ? "visible" : "hidden"}
+          animate={loadingComplete ? 'visible' : 'hidden'}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
         >
           {servicesData.map((service, index) => (
