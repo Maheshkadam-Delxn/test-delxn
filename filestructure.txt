@@ -1,0 +1,92 @@
+|-- .gitignore
+|-- jsconfig.json
+|-- next.config.mjs
+|-- package-lock.json
+|-- package.json
+|-- postcss.config.mjs
+|-- public
+    |-- bg
+        |-- blue-dot.png
+        |-- home-delxn 1.png
+        |-- right-side-img.png
+    |-- images
+        |-- bg.jpeg
+        |-- coder.png
+        |-- debugger.png
+        |-- developers.png
+        |-- ff.png
+        |-- footer.png
+        |-- innoansh.svg
+        |-- logo.png
+        |-- policysansar.png
+        |-- sathe.png
+        |-- tiga.png
+    |-- portfollio
+        |-- ecom.png
+        |-- education.png
+        |-- health.png
+        |-- industry.png
+        |-- insurance.png
+        |-- it.png
+        |-- logistic.png
+        |-- travel.png
+    |-- profile
+        |-- man.png
+        |-- woman.png
+    |-- serviceimages
+        |-- 1.png
+        |-- 2.png
+        |-- 3.png
+        |-- 4.jpg
+        |-- 5.jpg
+        |-- 6.jpg
+        |-- 7.jpg
+        |-- 8.jpg
+|-- README.md
+|-- src
+    |-- app
+        |-- about
+            |-- page.jsx
+        |-- ai-automation
+            |-- page.jsx
+        |-- bespoke
+            |-- page.jsx
+        |-- cloud
+            |-- page.jsx
+        |-- components
+            |-- Blog.jsx
+            |-- CoreValues.jsx
+            |-- Customer.jsx
+            |-- Demo.jsx
+            |-- Footer.jsx
+            |-- HeroSection.jsx
+            |-- NavBar.jsx
+            |-- Reviews.jsx
+            |-- ServiceDetails.jsx
+            |-- Services.jsx
+            |-- Stats.jsx
+            |-- Steps.jsx
+            |-- Story.jsx
+            |-- Why_Choose.jsx
+        |-- contact
+            |-- page.jsx
+        |-- digital-transformation
+            |-- page.jsx
+        |-- favicon.ico
+        |-- globals.css
+        |-- innovation
+            |-- page.jsx
+        |-- intelligent-systems
+            |-- page.jsx
+        |-- layout.js
+        |-- nocode
+            |-- page.jsx
+        |-- page.js
+        |-- portfollio
+            |-- page.jsx
+        |-- services
+            |-- [...service]
+                |-- page.jsx
+        |-- userexperience
+            |-- page.jsx
+|-- tailwind.config.mjs
