@@ -3,22 +3,23 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, useInView } from 'framer-motion';
-import ServiceCard from './Card.jsx';
+import ServiceCard from './Card';
 import { servicesData } from './services-data.js';
 
 const ServicesGrid = () => {
   const router = useRouter();
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
   const [hoveredCard, setHoveredCard] = useState(null);
   const [loadingComplete, setLoadingComplete] = useState(false);
 
-  // Simulate loading completion
+  // Smoother loading transition
   useEffect(() => {
     if (isInView) {
+      // Shorter delay for smoother appearance
       setTimeout(() => {
         setLoadingComplete(true);
-      }, 300);
+      }, 100);
     }
   }, [isInView]);
 
@@ -26,104 +27,78 @@ const ServicesGrid = () => {
     router.push(path);
   };
 
-  // Main section animation
+  // Smoother section animation
   const sectionVariants = {
     hidden: { opacity: 0 },
     visible: { 
       opacity: 1,
       transition: { 
-        duration: 0.8,
-        ease: [0.6, 0.05, 0.01, 0.9]
+        duration: 0.5,
+        ease: "easeOut"
       }
     }
   };
 
-  // Title animation
+  // Smoother title animation
   const titleVariants = {
-    hidden: { opacity: 0, y: -20 },
+    hidden: { opacity: 0, y: -15 },
     visible: { 
       opacity: 1, 
       y: 0,
       transition: { 
-        duration: 0.8,
-        ease: [0.6, 0.05, 0.01, 0.9],
-        delay: 0.2
+        duration: 0.6,
+        ease: "easeOut",
+        delay: 0.1
       }
     }
   };
 
-  // Staggered grid animation
+  // Smoother grid animation with proper staggering
   const gridVariants = {
     hidden: { opacity: 0 },
     visible: { 
       opacity: 1,
       transition: { 
-        staggerChildren: 0.1,
-        delayChildren: 0.3,
-        duration: 0.6,
-        ease: [0.6, 0.05, 0.01, 0.9]
+        staggerChildren: 0.08,
+        delayChildren: 0.2,
+        duration: 0.3,
+        ease: "easeOut"
       }
     }
   };
 
   return (
-    <motion.section
-      id="services"
+    <motion.section 
       ref={ref}
       variants={sectionVariants}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
-      className="bg-gradient-to-b from-[#060606] to-[#0a0a0a] text-white px-4 py-16  md:px-8 lg:px-16 min-h-screen relative overflow-hidden phone:px-16"
+      className="py-24 px-6 md:px-12 lg:px-24 relative bg-gradient-to-b from-blue-950 to-gray-900"
     >
-      {/* Background gradient effect */}
-      <div className="absolute inset-0 bg-gradient-radial from-blue-900/10 to-transparent opacity-20"></div>
-      
-      {/* Floating particles effect */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(8)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-4 h-4 rounded-full bg-blue-500/10"
-            animate={{
-              x: [Math.random() * 100, Math.random() * 100 - 50],
-              y: [Math.random() * 100, Math.random() * 100 - 50],
-              opacity: [0, 0.5, 0],
-              scale: [0, 1, 0]
-            }}
-            transition={{
-              duration: Math.random() * 10 + 15,
-              repeat: Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut",
-              delay: Math.random() * 5
-            }}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`
-            }}
-          />
-        ))}
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          backgroundSize: '30px 30px'
+        }} />
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Title with reveal animation */}
-        <motion.div
+      <div className="relative">
+        {/* Section Title with smoother animation */}
+        <motion.div 
           variants={titleVariants}
           className="text-center mb-16"
         >
-          <motion.h1 
-            className="text-3xl sm:text-4xl font-bold mb-8 md:mb-12 text-center"
-          >
-            What We Offer
-          </motion.h1>
+          <h2 className="text-4xl font-bold text-blue-100 mb-4">Our Services</h2>
+          <div className="w-24 h-1 bg-blue-500 mx-auto rounded-full"></div>
         </motion.div>
 
-        {/* Services grid with staggered animation */}
-        <motion.div
+        {/* Services Grid with smoother staggered animation */}
+        <motion.div 
           variants={gridVariants}
           initial="hidden"
           animate={loadingComplete ? "visible" : "hidden"}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
         >
           {servicesData.map((service, index) => (
             <ServiceCard
