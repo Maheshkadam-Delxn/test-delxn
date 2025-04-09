@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, useInView } from 'framer-motion';
 import ServiceCard from './Card';
@@ -11,13 +11,6 @@ const ServicesGrid = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
   const [hoveredCard, setHoveredCard] = useState(null);
-  const [loadingComplete, setLoadingComplete] = useState(false);
-
-  useEffect(() => {
-    if (isInView) {
-      setTimeout(() => setLoadingComplete(true), 100);
-    }
-  }, [isInView]);
 
   const handleCardClick = (path) => {
     router.push(path);
@@ -28,10 +21,7 @@ const ServicesGrid = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.8,
-        ease: 'easeOut'
-      }
+      transition: { duration: 0.8, ease: 'easeOut' }
     }
   };
 
@@ -40,11 +30,7 @@ const ServicesGrid = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.7,
-        ease: 'easeOut',
-        delay: 0.2
-      }
+      transition: { duration: 0.7, ease: 'easeOut', delay: 0.2 }
     }
   };
 
@@ -52,11 +38,7 @@ const ServicesGrid = () => {
     hidden: { scaleX: 0 },
     visible: {
       scaleX: 1,
-      transition: {
-        duration: 0.5,
-        ease: 'easeOut',
-        delay: 0.5
-      }
+      transition: { duration: 0.5, ease: 'easeOut', delay: 0.5 }
     }
   };
 
@@ -78,7 +60,7 @@ const ServicesGrid = () => {
       animate={isInView ? 'visible' : 'hidden'}
       className="py-24 px-6 md:px-12 lg:px-24 relative bg-gradient-to-b from-blue-950 to-gray-900"
     >
-      {/* Background Pattern with subtle animation */}
+      {/* Background Pattern */}
       <motion.div
         className="absolute inset-0 opacity-5"
         initial={{ opacity: 0 }}
@@ -108,7 +90,7 @@ const ServicesGrid = () => {
         <motion.div
           variants={gridVariants}
           initial="hidden"
-          animate={loadingComplete ? 'visible' : 'hidden'}
+          animate={isInView ? 'visible' : 'hidden'}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
         >
           {servicesData.map((service, index) => (
