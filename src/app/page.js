@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <div className="scrollbar scrollbar-none bg-black">
       <HeroSection />
-      <Why_Choose />
+      {/* <Why_Choose /> */}
       <Choose/>
       {/* <Demo /> */}
       <Services />
